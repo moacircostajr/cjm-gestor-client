@@ -1,3 +1,3 @@
-enum Perfil {
+export enum Perfil {
     ROLE_ADMIN, ROLE_OPERADOR, ROLE_PROFESSOR, ROLE_ALUNO
 }

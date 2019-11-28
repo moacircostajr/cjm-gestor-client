@@ -1,9 +1,10 @@
 import { Empresa } from './Empresa';
+import { Perfil } from './Perfil';
 
 export class Usuario {
   // public id: uuid.v1;
   public id: number;
-  public empresa:Empresa;
+  public empresa: Empresa;
   public email: string;
   public senha: string;
   public nome: string;
