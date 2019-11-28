@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="novoTopicoGeral()">
+        <ion-icon name="add"></ion-icon>
+      </ion-button>
+      <ion-button (click)="salvarTaxonomia()">
+        <ion-icon name="save"></ion-icon>
+      </ion-button>
+    </ion-buttons>   
+    <ion-title>Matéria</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ng-template #recursiveList let-taxonomia>
+      <li *ngFor="let elemento of taxonomia">
+        <ion-item>
+          <ion-input value="{{elemento.topico}}" #valor (ionBlur)="atualiza(elemento.topico, valor.value)"></ion-input>
+          <div>
+            <ion-button item-end (click)="remove(elemento.topico)">
+              <ion-icon name="remove"></ion-icon>
+            </ion-button>
+            <ion-button item-end (click)="novoSubitem(elemento.topico)">
+              <ion-icon name="return-right"></ion-icon>
+            </ion-button>
+          </div>
+        </ion-item>
+        <ul *ngIf="elemento.subtopico.length > 0">
+          <ng-container *ngTemplateOutlet="recursiveList; context: { $implicit: elemento.subtopico }"></ng-container>
+        </ul>
+      </li>
+    </ng-template>
+    <ng-container *ngTemplateOutlet="recursiveList; context: { $implicit: taxonomia }"></ng-container>
+</ion-content>

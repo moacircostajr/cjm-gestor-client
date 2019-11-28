@@ -1,0 +1,7 @@
+{
+  "name": "cjm-gestor-client",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

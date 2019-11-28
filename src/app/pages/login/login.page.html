@@ -1,0 +1,17 @@
+<ion-content padding scroll="false">
+  <p class="texto-alinh-centr">Gestor do Site</p>
+  <p class="texto-alinh-centr">Login</p>
+  <div class="painel-login">
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="text" name="email" [(ngModel)]="email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Senha</ion-label>
+      <ion-input type="password" name="senha" [(ngModel)]="senha"></ion-input>
+    </ion-item>
+    <ion-button (click)="acessar()">
+      Entrar
+    </ion-button>
+  </div>
+</ion-content>

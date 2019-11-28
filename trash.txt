@@ -1,0 +1,17 @@
+console.log('recuperando foto...');
+    if (localStorage.getItem(this.CHAVE_IMG)) {
+      let caminho = localStorage.getItem(this.CHAVE_IMG);
+      caminho = caminho.substr(7, caminho.length-1);
+      return caminho;
+    } else /* if ('assets/icon/favicon.png') */ {
+      return 'assets/icon/favicon.png';
+    }/* else {
+      return '/storage/emulated/0/Android/data/io.ionic.devapp/cache/images.jpeg';
+    } */
+    // return localStorage.getItem(this.CHAVE_IMG) ? localStorage.getItem(this.CHAVE_IMG) : 'assets/icon/favicon.png';
+
+    this.taxonomia.filter((obj) => {
+        if (obj.topico == pTopico) {
+          objetoBuscado = obj;
+        }
+      }

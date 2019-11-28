@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>    
+    <ion-title>Colaborador</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-fab vertical="top" horizontal="end" slot="fixed" edge="true">
+      <ion-fab-button (click)="registraUsuario()">
+        <ion-icon name="checkmark"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  <form>
+    <ion-item>
+      <ion-label position="floating">Nome</ion-label>
+      <ion-input name="nome" [(ngModel)]="usuario.nome"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="email" name="email" [(ngModel)]="usuario.email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Telefone</ion-label>
+      <ion-input name="telefone" [(ngModel)]="usuario.telefone"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Perfil</ion-label>
+      <ion-select [(ngModel)]="usuario.perfil" [ngModelOptions]="{standalone:true}">
+        <ion-select-option value="ROLE_ADMIN">ADMINISTRADOR</ion-select-option>
+        <ion-select-option value="ROLE_OPERADOR">OPERADOR</ion-select-option>
+        <ion-select-option value="ROLE_PROFESSOR">PROFESSOR</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Senha</ion-label>
+      <ion-input type="password" name="senha" [(ngModel)]="usuario.senha"></ion-input>
+    </ion-item>
+  </form>
+</ion-content>

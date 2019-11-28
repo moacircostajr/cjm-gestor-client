@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="novoConcurso()">
+        <ion-icon name="add"></ion-icon>
+      </ion-button>
+      <ion-button (click)="salvarConcursos()">
+        <ion-icon name="save"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Concursos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngFor="let concurso of concursos">
+    <ion-item>
+      <ion-input value="{{concurso}}" #valor (ionBlur)="atualiza(concurso, valor.value)"></ion-input>
+      <div>
+        <ion-button item-end (click)="remove(concurso)">
+          <ion-icon name="remove"></ion-icon>
+        </ion-button>
+      </div>
+    </ion-item>
+  </div>
+</ion-content>

@@ -1,0 +1,149 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>    
+    <ion-title>Questão</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form>
+    <ion-card>
+      <ion-card-content>
+          <ion-item>
+            <ion-label position="floating">Enunciado</ion-label>
+            <ion-textarea name="enunciado1" [(ngModel)]="pEnunciado1"></ion-textarea>
+          </ion-item>
+
+          <ion-button class="botao" color="primary" (click)="fotografar()">Imagem</ion-button>
+          <input class="botao" color="primary" #imageInput type="file" accept="image/jpg" (change)="enviarArquivo(imageInput)" title="Enviar Arquivo">
+
+          <img [src]="pImagem" *ngIf="pImagem"/>
+
+          <ion-item>
+            <ion-label position="floating">Complemento</ion-label>
+            <ion-textarea  name="enunciado2" [(ngModel)]="pEnunciado2"></ion-textarea>
+          </ion-item>
+          <ion-item-group>
+              <ion-item>
+                  <ion-label stacked>Nº de assertivas</ion-label>
+                <ion-select [(ngModel)]="pNAssertivas" name="assertivas">
+                  <ion-select-option value="2">2</ion-select-option>
+                  <ion-select-option value="4">4</ion-select-option>
+                  <ion-select-option value="5">5</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-item-group [hidden]="pNAssertivas==0">
+                  <ion-item *ngIf="pNAssertivas>1">
+                    <ion-label position="floating">a) </ion-label>
+                    <ion-input name="item0" [(ngModel)]="pItem0"></ion-input>
+                  </ion-item>
+                  <ion-item *ngIf="pNAssertivas>1">
+                    <ion-label position="floating">b) </ion-label>
+                    <ion-input name="item1" [(ngModel)]="pItem1"></ion-input>
+                  </ion-item>
+                  <ion-item *ngIf="pNAssertivas>2">
+                    <ion-label position="floating">c) </ion-label>
+                    <ion-input name="item2" [(ngModel)]="pItem2"></ion-input>
+                  </ion-item>
+                  <ion-item *ngIf="pNAssertivas>2">
+                    <ion-label position="floating">d) </ion-label>
+                    <ion-input name="item3" [(ngModel)]="pItem3"></ion-input>
+                  </ion-item>
+                  <ion-item *ngIf="pNAssertivas>4">
+                    <ion-label position="floating">e) </ion-label>
+                    <ion-input name="item4" [(ngModel)]="pItem4"></ion-input>
+                  </ion-item>
+              </ion-item-group>
+              <ion-item [hidden]="pNAssertivas==0">
+                  <ion-label stacked>Solução objetiva</ion-label>
+                  <ion-select [(ngModel)]="pGabaritoObjetivo" [ngModelOptions]="{standalone:true}">
+                      <ion-select-option value="0" *ngIf="pNAssertivas>1">A</ion-select-option>
+                      <ion-select-option value="1" *ngIf="pNAssertivas>1">B</ion-select-option>
+                      <ion-select-option value="2" *ngIf="pNAssertivas>2">C</ion-select-option>
+                      <ion-select-option value="3" *ngIf="pNAssertivas>2">D</ion-select-option>
+                      <ion-select-option value="4" *ngIf="pNAssertivas>4">E</ion-select-option>
+                  </ion-select>
+              </ion-item>
+          </ion-item-group>
+          <ion-item [hidden]="pNAssertivas>0">
+            <ion-label position="floating">Solução dissertativa</ion-label>
+            <ion-textarea name="gabaritoSubjetivo" [(ngModel)]="pGabaritoSubjetivo"></ion-textarea>
+          </ion-item>
+          <ion-item>
+            <ion-label stacked>Pontuação</ion-label>
+            <ion-input type="number" name="pontuacao" [(ngModel)]="pPontuacao"></ion-input>
+          </ion-item>
+          <ion-list>
+            <ion-radio-group>
+              <ion-list-header>
+                <ion-label>Matéria</ion-label>
+              </ion-list-header>
+              <ul>
+                <ng-template #recursiveList let-taxonomia>
+                  <li *ngFor="let elemento of taxonomia">
+                    <ion-item>
+                      <ion-label>{{elemento.topico}}</ion-label>
+                      <ion-radio slot="end" #status (ionSelect)="definirCriterio(status.checked, elemento.topico)"></ion-radio>
+                    </ion-item>
+                    <ul *ngIf="elemento.subtopico.length > 0">
+                      <ng-container *ngTemplateOutlet="recursiveList; context: { $implicit: elemento.subtopico }"></ng-container>
+                    </ul>
+                  </li>
+                </ng-template>
+                <ng-container *ngTemplateOutlet="recursiveList; context: { $implicit: taxonomia }"></ng-container>
+              </ul>
+            </ion-radio-group>
+          </ion-list>
+          <ion-list>
+            <ion-list-header>
+              <ion-label>Bancas</ion-label>
+            </ion-list-header>
+            <div *ngFor="let banca of bancas">
+              <ion-item>
+                <ion-label>{{banca}}</ion-label>
+                <ion-toggle #status color="secondary" (ionChange)="atualizaBancasQuestao(status.checked, banca)"></ion-toggle>
+              </ion-item>
+            </div>
+          </ion-list>
+          <ion-list>
+            <ion-list-header>
+              <ion-label>Provas</ion-label>
+            </ion-list-header>
+            <div *ngFor="let prova of provas">
+              <ion-item>
+                <ion-label>{{prova}}</ion-label>
+                <ion-toggle #status color="secondary" (ionChange)="atualizaProvasQuestao(status.checked, prova)"></ion-toggle>
+              </ion-item>
+            </div>
+          </ion-list>
+          <ion-list>
+              <ion-list-header>
+                <ion-label>Ano</ion-label>
+              </ion-list-header>
+              <ion-item>
+                <ion-input type="number" #tAno value="2019"></ion-input>
+                <ion-button (click)="adicionaAnoQuestao(tAno.value)">
+                  <ion-icon name="add"></ion-icon>
+                </ion-button>
+              </ion-item>
+              <div *ngFor="let ano of pAno">
+                <ion-item>
+                  <ion-label>{{ano}}</ion-label>
+                  <ion-button item-end (click)="removeAnoQuestao(ano)">
+                    <ion-icon name="remove"></ion-icon>
+                  </ion-button>
+                </ion-item>
+              </div>
+            </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </form>
+
+  <ion-fab vertical="top" horizontal="end" slot="fixed" edge="true">
+    <ion-fab-button (click)="registrarQuestao()">
+      <ion-icon name="checkmark"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

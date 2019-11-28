@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Questões</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-fab vertical="top" horizontal="end" slot="fixed" edge="true">
+    <ion-fab-button routerLink="/questao">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <div *ngFor="let exercicio of exercicios">
+    <ion-card (click)="verExercicio(exercicio)">
+      <ion-card-content>
+        <ion-item>
+          <ion-label>{{exercicio.id}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>{{exercicio.enunciado1}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>{{exercicio.enunciado2}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>{{exercicio.opcoes}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>{{exercicio.gabaritoObjetivo}}</ion-label>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
