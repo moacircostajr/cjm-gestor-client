@@ -53,5 +53,4 @@ Este projeto está licenciado sob os termos da GNU General Public License v3.0 -
 
 ## Status do projeto
 
-* É necessário corrigir um bug na atualização de um exercício;
-* A ferramenta de testes e sincronização TRAVIS está desconfigurada.
+* Este projeto utiliza o plugin Cordova, que em breve deixará de ser aceito no iOS. Veja os detalhes [aqui](https://github.com/ionic-team/capacitor/issues/1912). Portanto, esta tecnologia em breve terá seu uso restringido, razão pelo qual decidi encerrar o desenvolvimento.
